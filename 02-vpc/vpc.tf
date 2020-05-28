@@ -56,9 +56,10 @@ resource "ibm_is_vpc_address_prefix" "subnet_prefix" {
 resource "ibm_is_public_gateway" "gateway" {
   count = "3"
 
-  name = "${var.unique_id}-gateway-zone-${count.index + 1}"
-  vpc  = ibm_is_vpc.vpc.id
-  zone = "${var.ibm_region}-${count.index + 1}"
+  name            = "${var.unique_id}-gateway-zone-${count.index + 1}"
+  vpc             = ibm_is_vpc.vpc.id
+  resource_group  = data.ibm_schematics_output.groups_output.output_values.resource_group_id
+  zone            = "${var.ibm_region}-${count.index + 1}"
 }
 
 ##############################################################################
